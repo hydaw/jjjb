@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<title>数信文体部祝大家</title>
+     <style>
+         /* 新增：全局样式重置，避免手机默认边距影响 */
+         * {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+         }
+         body {
+             overflow: hidden; /* 隐藏滚动条，防止页面滚动 */
+             width: 100vw; /* 占满屏幕宽度 */
+             height: 100vh; /* 占满屏幕高度 */
+         }
+         .blessing {
+             position: fixed;
+             padding: 20px; /* 原40px缩小2倍（40÷2） */
+             border-radius: 10px; /* 原20px缩小2倍（20÷2） */
+             font-family: "微软雅黑", sans-serif;
+             font-weight: 600;
+             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* 原40px缩小2倍（40÷2） */
+             z-index: 9999;
+             opacity: 0;
+             transform: scale(1); /* 原2缩小2倍（2÷2），配合缩小后弹窗效果 */
+             transition: opacity 0.5s, transform 0.5s;
+             font-size: 28px; /* 原56px缩小2倍（56÷2） */
+         }
+     </style>
+ </head>
+ <body>
+ <script>
+         // 朋友祝福文案列表
+         const blessings = [
+             "我站在你这边", "别淋雨", "穿舒服鞋，不累脚",
+             "难题一加，你一定能解", "多喝温水", "早点休息",
+             "每天保持微笑", "今天也要开心吖", "别苛责自己",
+             "没做好，下次再试", "多吃水果", "付出有好结果",
+             "保持好心情", "多穿衣服", "按时吃饭",
+             "路过风景能心动", "抬头见好天气", "别硬撑",
+             "你比想象中棒", "愿你常感温暖", "等待不被辜负",
+             "今天也要加油哦", "别急", "愿你天天开心",
+             "别熬夜", "累了也没事", "愿你所有烦恼都消失",
+             "今天过的开心嘛", "早安，开启美好一天", "散步吧",
+             "吃饭有幸福", "和喜欢的人聊聊", "别多想",
+             "照顾好自己", "慢慢做", "梦想成真",
+             "别焦虑", "事情会慢慢解决的", "睡个好觉",
+             "水果洗干净再吃", "开启美好一天", "热爱生活不减少",
+             "空调别对吹", "愿你遇小幸运", "发现生活小美好"
+         ];
+         // 符号颜文字列表（纯符号组合，风格统一，与文本框样式适配）
+         const symbolEmojis = ["✦", "✧", "★", "☆", "◇", "◆", "□", "■", "△", "▲", "♡", "♢", "♤", "♧", "⚝", "⚟", "⚜", "⚡", "☼", "☽", "☾", "♪", "♫", "♬", "✩", "✪"];
+         // 暖粉色系颜色组合（统一暖粉背景+高对比文字色，确保可读性）
+         const colorPairs = [
+             { bg: "#FFD1DC", text: "#333333" }, // 浅暖粉-深灰
+             { bg: "#FFB6C1", text: "#222222" }, // 淡粉-深黑
+             { bg: "#FF9AA2", text: "#FFFFFF" }, // 柔粉-白
+             { bg: "#FF8A9A", text: "#FFFFFF" }, // 暖粉-白
+             { bg: "#FF7B8B", text: "#FFFFFF" }, // 粉艳-白
+             { bg: "#FF6B7B", text: "#FFFFFF" }, // 深暖粉-白
+             { bg: "#FF5C6C", text: "#FFFFFF" }, // 艳粉-白
+             { bg: "#F8A4C8", text: "#222222" }, // 粉紫暖调-深黑
+             { bg: "#F598B5", text: "#FFFFFF" }, // 粉紫暖粉-白
+             { bg: "#F28AAA", text: "#FFFFFF" }, // 深粉紫暖调-白
+             { bg: "#FFB3D9", text: "#333333" }, // 浅粉紫-深灰
+             { bg: "#FF99CC", text: "#FFFFFF" }, // 粉紫-白
+             { bg: "#FF80B8", text: "#FFFFFF" }, // 深粉紫-白
+             { bg: "#FF66A6", text: "#FFFFFF" }, // 艳粉紫-白
+             { bg: "#FFBFFF", text: "#333333" }, // 浅粉蓝暖调-深灰
+             { bg: "#FFAADD", text: "#222222" }, // 粉蓝暖调-深黑
+             { bg: "#FF99DD", text: "#FFFFFF" }, // 粉蓝-白
+             { bg: "#FF88DD", text: "#FFFFFF" }, // 深粉蓝-白
+             { bg: "#FF77DD", text: "#FFFFFF" }, // 艳粉蓝-白
+             { bg: "#FFE6F2", text: "#333333" }  // 超浅暖粉-深灰
+         ];
+         function createMultipleBlessings() {
+             // 1秒内创建30个文本框（按需求修改数量）
+             for (let i = 0; i < 30; i++) {
+                 setTimeout(() => {
+                     const blessingDiv = document.createElement("div");
+                     blessingDiv.className = "blessing";
+                     
+                     // 适配手机+文本框缩小2倍：调整位置计算（文本框尺寸同步缩小2倍）
+                     const textBoxWidth = 160; // 原320px缩小2倍（320÷2）
+                     const textBoxHeight = 80; // 原160px缩小2倍（160÷2）
+                     // 基于手机屏幕实际宽高计算随机位置，保留20px边距（适配缩小后的尺寸）
+                     const x = Math.random() * (window.innerWidth - textBoxWidth - 40) + 20;
+                     const y = Math.random() * (window.innerHeight - textBoxHeight - 40) + 20;
+                     
+                     const blessing = blessings[Math.floor(Math.random() * blessings.length)];
+                     const { bg, text } = colorPairs[Math.floor(Math.random() * colorPairs.length)];
+                     // 随机选择符号颜文字，与文案组合显示
+                     const randomSymbol = symbolEmojis[Math.floor(Math.random() * symbolEmojis.length)];
+                     
+                     blessingDiv.textContent = `${blessing} ${randomSymbol}`;
+                     blessingDiv.style.left = `${x}px`;
+                     blessingDiv.style.top = `${y}px`;
+                     blessingDiv.style.backgroundColor = bg;
+                     blessingDiv.style.color = text;
+                     
+                     document.body.appendChild(blessingDiv);
+                     setTimeout(() => {
+                         blessingDiv.style.opacity = "1";
+                         blessingDiv.style.transform = "scale(2)"; // 原4缩小2倍（4÷2），实现弹窗效果
+                     }, 10);
+                     setTimeout(() => {
+                         blessingDiv.style.opacity = "0";
+                         blessingDiv.style.transform = "scale(1)"; // 原2缩小2倍（2÷2），对应消失效果
+      setTimeout(() => {
+                             if (document.body.contains(blessingDiv)) {
+                                 document.body.removeChild(blessingDiv);
+                             }
+                         }, 500);
+                     }, 2000);
+                 }, Math.random() * 1000);
+             }
+         }
+         // 修复定时器语法错误，延迟1秒开始，之后连续不断执行
+         setTimeout(() => {
+             createMultipleBlessings();
+             setInterval(createMultipleBlessings, 1000);
+         }, 1000);
+     </script>
+ </body>
+</html>
